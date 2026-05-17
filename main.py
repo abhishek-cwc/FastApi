@@ -1,11 +1,10 @@
-from fastapi import FastAPI, Path, HTTPException, Query
-from fastapi.responses import JSONResponse
+from fastapi import FastAPI
 
+from core.database import Base, engine
+from routers import user_router
+
+Base.metadata.create_all(bind=engine)
 
 app = FastAPI()
 
-@app.get("/")
-def hello():
-    return JSONResponse(status_code=401, content="Hello")
-
-    
+app.include_router(user_router.router)
