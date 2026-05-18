@@ -5,3 +5,6 @@ pydantic
 sqlalchemy
 pymysql
 python-dotenv
+
+# database upgrade
+alembic
