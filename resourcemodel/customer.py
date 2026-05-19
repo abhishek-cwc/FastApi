@@ -52,7 +52,6 @@ def login_customer(customer: Login, db: Session):
     return {'token': token}
 
 def is_customer_login(request: Request, db: Session):
-    print(request.headers.get("authorization"))
     auth_header = request.headers.get("authorization")
     if not auth_header:
         raise HTTPException(401, detail="authorization header is missing")
