@@ -1,18 +1,15 @@
 from fastapi import APIRouter, Depends, Path, Query
 from sqlalchemy.orm import Session
 
-from core.database import SessionLocal
+from core.database import SessionLocal, get_db
 from schemas.user_schema import UserCreate, UserResponse, UserUpdate
 from resourcemodel.user import create_user, get_users, get_users_by_id, update_user_data
 
+from models.customer import Customer
+from utils.helper import is_customer_login
+
 router = APIRouter()
 
-def get_db():
-    db = SessionLocal()
-    try:
-        yield db
-    finally:
-        db.close()
 
 @router.post("/users")
 def add_user(user: UserCreate, db: Session = Depends(get_db)):
@@ -22,7 +19,8 @@ def add_user(user: UserCreate, db: Session = Depends(get_db)):
 def all_users(
     limit: int = Query(4, le=10),
     sort_by: str = Query('id'),
-    db: Session = Depends(get_db)
+    db: Session = Depends(get_db),
+    user: Customer = Depends(is_customer_login)
     ):
     return get_users(limit, sort_by, db)
 

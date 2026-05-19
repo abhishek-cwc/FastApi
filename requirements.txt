@@ -8,3 +8,7 @@ python-dotenv
 
 # database upgrade
 alembic
+
+#jwt
+PyJWT
+pwdlib[argon2]
