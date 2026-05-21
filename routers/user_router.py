@@ -26,7 +26,7 @@ def all_users(
 
 @router.get("/user/{user_id}", response_model=UserResponse)
 def get_user_detail(
-    user_id: int = Path(..., description="admin user id", example="1"),
+    user_id: int = Path(..., description="admin user id", examples="1"),
     db : Session = Depends(get_db)
     ):
     return get_users_by_id(user_id, db)
@@ -34,7 +34,7 @@ def get_user_detail(
 @router.patch("/user/{user_id}", response_model=UserResponse)
 def update_user(
     user: UserUpdate,
-    user_id: int = Path(..., description="admin user id", example="1"),
+    user_id: int = Path(..., description="admin user id", examples="1"),
     db : Session = Depends(get_db)
     ):
     return update_user_data(user_id, user, db)

@@ -2,6 +2,8 @@ from sqlalchemy.orm import Session
 from models.user import User
 from schemas.user_schema import UserCreate, UserUpdate
 from fastapi import HTTPException
+from sqlalchemy import select
+from sqlalchemy.ext.asyncio import AsyncSession
 
 def create_user(db: Session, user: UserCreate):
     db_user = User(
@@ -17,6 +19,15 @@ def create_user(db: Session, user: UserCreate):
 
 def get_users(limit, sort_by, db: Session):
     return db.query(User).order_by(getattr(User, sort_by)).limit(limit=limit).all()
+
+
+async def async_get_users(limit, sort_by, db: AsyncSession):
+    result = await db.execute(
+        select(User)
+        .order_by(getattr(User, sort_by))
+        .limit(limit)
+    )
+    return result.scalars().all()
 
 def get_users_by_id(user_id, db: Session):
 

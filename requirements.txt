@@ -12,3 +12,5 @@ alembic
 #jwt
 PyJWT
 pwdlib[argon2]
+
+aiomysql

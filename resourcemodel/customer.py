@@ -39,6 +39,11 @@ def create_customer(customer: CustomerSchema, db: Session):
     return customer_obj
 
 
+def get_customer_info(customer : CustomerModel, db: Session):
+    print(customer['id'])
+    customerobj = db.query(CustomerModel).filter(CustomerModel.id == customer['id']).first()
+    return customerobj
+
 def login_customer(customer: Login, db: Session):
     customer_obj = db.query(CustomerModel).filter(CustomerModel.email == customer.email).first()
     if not customer_obj:

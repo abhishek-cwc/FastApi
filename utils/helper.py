@@ -11,7 +11,7 @@ SECRET_KEY = os.getenv('SECRET_KEY')
 ALGORITHM = os.getenv('ALGORITHM')
 
 def is_customer_login(request: Request, db: Session = Depends(get_db)):
-    print(request.headers.get("authorization"))
+    #print(request.headers.get("authorization"))
     auth_header = request.headers.get("authorization")
     if not auth_header:
         raise HTTPException(401, detail="authorization header is missing")
